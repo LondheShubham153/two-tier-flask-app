@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Flask Frontend with MySQL</title>
+    <style>
+        /* ... (your CSS styles) */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello, Flask Frontend with MySQL!</h1>
+        {% for message in messages %}
+            <p>{{ message[0] }}</p>
+        {% endfor %}
+        
+        <form action="/submit" method="post">
+            <input type="text" name="new_message" placeholder="Enter a new message">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
+
