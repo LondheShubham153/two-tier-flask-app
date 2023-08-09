@@ -22,7 +22,7 @@ services:
       MYSQL_USER: devops
       MYSQL_PASSWORD: devops
     volumes:
-      - mysql-data:/var/lib/mysql/  # Mount the volume for MySQL data storage
+      - mysql-data:/var/lib/mysql/ 
 
 volumes:
   mysql-data:
