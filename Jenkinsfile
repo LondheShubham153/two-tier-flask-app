@@ -20,7 +20,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                 sh "docker tag two-tier-app ${env.dockerHubUser}/two-tier-app:latest"
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                sh "docker push ${env.dockerHubUser}/my-note-app:latest"
+                sh "docker push ${env.dockerHubUser}/two-tier-app:latest"
                 }
             }
         }
