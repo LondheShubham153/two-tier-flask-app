@@ -5,7 +5,7 @@ pipeline {
         stage("Clone Code"){
             steps {
                 echo "Cloning the code"
-                git url:"https://github.com/sumanprasad007/two-tier-flask-app.git", branch: "main"
+                git url:"https://github.com/sumanprasad007/two-tier-flask-app.git", branch: "master"
             }
         }
         stage("Build"){
