@@ -8,19 +8,19 @@ services:
       - "5000:5000"
     environment:
       MYSQL_HOST: mysql
-      MYSQL_USER: your_username
-      MYSQL_PASSWORD: your_password
-      MYSQL_DB: your_database
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+      MYSQL_DB: myDb
     depends_on:
       - mysql
 
   mysql:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: your_root_password
-      MYSQL_DATABASE: your_database
-      MYSQL_USER: your_username
-      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: myDb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
     volumes:
       - ./message.sql:/docker-entrypoint-initdb.d/message.sql   # Mount sql script into container's /docker-entrypoint-initdb.d directory
       - mysql-data:/var/lib/mysql  # Mount the volume for MySQL data storage
