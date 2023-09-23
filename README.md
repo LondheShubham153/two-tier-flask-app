@@ -1,4 +1,4 @@
-
+ 
 # Flask App with MySQL Docker Setup
 
 This is a simple Flask app that interacts with a MySQL database. The app allows users to submit messages, which are then stored in the database and displayed on the frontend.
@@ -74,6 +74,29 @@ To stop and remove the Docker containers, press `Ctrl+C` in the terminal where t
 
 ```bash
 docker-compose down
+```
+
+## To run this two-tier application using  without docker-compose
+
+- First create a docker image from Dockerfile
+```bash
+docker build -t flaskapp .
+```
+
+- Now, make sure that you have created a network using following command
+```bash
+docker network create twotier
+```
+
+- Attach both the containers in the same network, so that they can communicate with each other
+
+i) MySQL container 
+```bash
+docker run -d --name mysql -v mysql-data:/var/lib/mysql --network=twotier -e MYSQL_DATABASE=mydb -e MYSQL_USER=admin -e MYSQL_ROOT_PASSWORD="admin" nginx:5.7
+```
+ii) Backend container
+```bash
+docker run -d --name flaskapp -v mysql-data:/var/lib/mysql --network=twotier -e MYSQL_HOST=mysql -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DB=mydb flaskapp:latest
 ```
 
 ## Notes
