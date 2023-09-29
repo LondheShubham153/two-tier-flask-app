@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: twotierapp
+  name: two-tier-app
   labels:
-    app: twotierapp
+    app: two-tier-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: twotierapp
+      app: two-tier-app
   template:
     metadata:
       labels:
-        app: twotierapp
+        app: two-tier-app
     spec:
       containers:
-        - name: twotierapp
-          image: madhupdevops/two-tier-microservice-app:latest
+        - name: two-tier-app
+          image: trainwithshubham/flaskapp:latest
           env:
             - name: MYSQL_HOST
               value: "10.98.19.211"          # this is your mysql's service clusture IP, Make sure to change it with yours
