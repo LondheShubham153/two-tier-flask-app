@@ -22,7 +22,10 @@ spec:
             - containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: admin
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
           volumeMounts:
             - name: mysql-initdb
               mountPath: /docker-entrypoint-initdb.d
