@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment
+  namespace: 2tier
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        image: trainwithshubham/flaskapp:latest
+        ports:
+          - containerPort: 5000
+        env:
+          - name: MYSQL_HOST
+            value: mysql-service
+          - name: MYSQL_USER
+            value: root
+          - name: MYSQL_PASSWORD
+            value: admin
+          - name: MYSQL_DB
+            value: mydb
