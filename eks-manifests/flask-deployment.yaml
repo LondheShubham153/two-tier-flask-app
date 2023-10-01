@@ -22,8 +22,27 @@ spec:
           - name: MYSQL_HOST
             value: mysql-service
           - name: MYSQL_USER
-            value: root
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-user-config
+                key: MYSQL_USER
           - name: MYSQL_PASSWORD
-            value: admin
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_ROOT_PASSWORD
           - name: MYSQL_DB
-            value: mydb
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-user-config
+                key: MYSQL_DB
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-user-config
+data:
+  MYSQL_USER: root
+  MYSQL_DB: mydb
+
