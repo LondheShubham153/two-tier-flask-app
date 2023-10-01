@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-deployment
-  namespace: 2tier
+  namespace: two-tier-ns
   labels:
     app: mysql
 spec:
@@ -38,7 +38,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql-initdb-config
-  namespace: 2tier
+  namespace: two-tier-ns
 data:
   init.sql: |
     CREATE DATABASE IF NOT EXISTS mydb;
