@@ -113,7 +113,7 @@ docker run -d --name flaskapp -v mysql-data:/var/lib/mysql -v ./message.sql:/doc
 
 ## To run this two-tier application in EKS Cluster 
 
-- Create namespace "2tier" before applying manifests.
+- Create namespace "two-tier-ns" before applying manifests.
 
 #### Pre-requisites: 
   - an EC2 Instance (Note : If Using Ubuntu EC2 Instance instead of Amazon Linux then Make Sure to have **aws-iam-authenticator** installed.)
