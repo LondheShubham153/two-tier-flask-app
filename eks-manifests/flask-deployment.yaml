@@ -42,6 +42,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql-user-config
+  namespace: 2tier
 data:
   MYSQL_USER: root
   MYSQL_DB: mydb
