@@ -36,7 +36,7 @@ cd two-tier-flask-app/helm-charts/app-chart
 helm create application-chart
 ```
 - Move to `application-chart` directory and do `ls -l`, you will see lots of files and folders
-- Replace values.yml file's content with the following content,
+- Replace values.yaml file's content with the following content,
 ```bash
 # Default values for app.
 # This is a YAML-formatted file.
@@ -143,3 +143,58 @@ tolerations: []
 
 affinity: {}
 ```
+- Move to templates directory and open deployment.yaml file and change the content of the file with the following code,
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "app.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.container.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.targetport }}
+```
+- Now, open service.yaml file and replace the content with the following code,
+```bash
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetport }}
+      protocol: {{ .Values.service.protocol }}
+      nodePort: {{ .Values.service.nodeport}}
+  selector:
+    {{- include "app.selectorLabels" . | nindent 4 }}
+```
+- Now, move two directory back `templates and application-chart` and Validate your deployment.yaml and service.yaml files
+```bash
+helm template application-chart
+```
+- Package the helm chart
+```bash
+helm package application-chart
+```
+- Deploy helm charts
+```bash
+helm install two-tier-app application-chart     # two-tier-app: Release Name, application-chart: chart name.
+
