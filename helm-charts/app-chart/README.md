@@ -1,5 +1,5 @@
 # Step by step guide for 2 tier application deployment using HELM Charts on Kubernetes Cluster
-
+## NOTE: This helm chart is for backend deployment i.e. flask-app
 ## Pre-requisites for helm chart deployment
 - AWS account
 - 2 Ubuntu OS Machines with t2.medium or above instance type
