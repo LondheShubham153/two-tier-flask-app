@@ -2,10 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql-service
-  namespace: 2tier
+  namespace: two-tier-ns
 spec:
   selector:
     app: mysql
   ports:
-    - port: 3306
+    - protocol: TCP
+      port: 3306
       targetPort: 3306
