@@ -1,4 +1,4 @@
-# Let's understand about istio service mesh
+# Let's understand about istio service mesh <img width="80" alt="image" src="https://github.com/DevMadhup/two-tier-flask-app/assets/121779953/122c1900-9eea-4b17-af6c-34dc6e6044d1">
 
 ## 1) What is istio?
 - Istio is a open-source service mesh implementation that manages the communication and data sharing between micro-services. This platform is added to reduce the complexity of managing network services.
@@ -23,3 +23,35 @@
 ## 5) Architecture of istio:
 
 <img width="500" height="250" alt="image" src="https://github.com/LondheShubham153/two-tier-flask-app/assets/121779953/845ecbe3-1372-410b-ba71-c00c175d64d3">
+
+### `Control Plane`
+Before version 1.5, the control plane was a cluster of different components – Pilot, Citadel, and Galley. Istio 1.5 introduced Istiod, a control plane that combined the above-mentioned components into one. Istiod simplified configuring and operating the service mesh.
+
+### Istio services in the control plane include the:
+
+- Pilot uses the Envoy API to communicate with Envoy sidecars. It is responsible for traffic management, routing, and service discovery.
+  
+- Citadel provides secure communication among services by managing user authentication, certificate, and credential management.
+  
+- Galley is responsible for configuration management, ingestion, distribution, and processing.
+
+### `Data Plane`
+- The data plane consists of `Envoy proxies` deployed into the pods as sidecars. They interact with and manage traffic for all services within the system. This includes controlling all network communication between microservices.
+
+- Since they are added as sidecars, there is no need to redesign the application’s architecture to implement the proxies.
+
+- The proxies control traffic by specifying routing rules (for HTTP, gRPC, TCP) and enforcing TLS and traffic encryption.
+
+- All traffic goes through the Envoy proxies. Therefore, these components collect large amounts of data and provide valuable insight into your business traffic.
+
+### Envoy proxies provide:
+
+- Dynamic service discovery
+- Load balancing
+- Health checks
+- TLS termination
+- HTTP/2 and gRPC proxies
+- Circuit breakers
+- Staged rollouts with percentage-based traffic split
+- Fault injection
+- Rich metrics
