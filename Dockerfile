@@ -1,25 +1,26 @@
-# Use an official Python runtime as the base image
-FROM python:3.9-slim
+# Pull base pythin image
 
-# Set the working directory in the container
-WORKDIR /app
+FROM python:3 
+
+# set working directory in the container
+
+WORKDIR /data
 
 # install required packages for system
+
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements file into the container
+# Copy the required file into container
+
 COPY requirements.txt .
 
-# Install app dependencies
 RUN pip install mysqlclient
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
 COPY . .
 
-# Specify the command to run your application
 CMD ["python", "app.py"]
-
