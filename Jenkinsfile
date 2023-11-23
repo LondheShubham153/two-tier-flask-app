@@ -1,10 +1,10 @@
 pipeline {
-    agent any
+    agent lable 'producation' 'testing' 'development' 
     
     stages{
         stage("Code"){
             steps{
-                git url: "https://github.com/LondheShubham153/two-tier-flask-app.git", branch: "jenkins"
+                git url: "https://github.com/rohit808077/two-tier-flask-appapp.git", branch: "jenkins"
             }
         }
         stage("Build & Test"){
