@@ -1,5 +1,5 @@
 pipeline {
-    agent lable 'producation' 'testing' 'development' 
+    agent any 
     
     stages{
         stage("Code"){
@@ -9,15 +9,15 @@ pipeline {
         }
         stage("Build & Test"){
             steps{
-                sh "docker build . -t flaskapp"
+                sh "docker build -t two-tier-falsk-app ."
             }
         }
         stage("Push to DockerHub"){
             steps{
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                    sh "docker tag flaskapp ${env.dockerHubUser}/flaskapp:latest"
-                    sh "docker push ${env.dockerHubUser}/flaskapp:latest" 
+                    sh "docker tag two-tier-falsk-app ${env.dockerHubUser}/two-tier-falsk-app"
+                    sh "docker push ${env.dockerHubUser}/two-tier-falsk-app" 
                 }
             }
         }
