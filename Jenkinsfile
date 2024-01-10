@@ -4,31 +4,13 @@ pipeline {
     agent  none
     
     stages{
-        stage("Code"){
-		
-		 agent {
-                label 'dev-server'
-            }
 
-            steps{
-                git url: "https://github.com/rohit808077/two-tier-flask-app.git", branch: "master"
-            }
-        }
-        stage("Build & Test"){
-
-		 agent {
-                label 'dev-server'
-            }
-		
-            steps{
-                sh "docker build -t two-tier-falsk-app ."
-            }
-        }
         stage("Push to DockerHub"){
 
-		 agent {
-                label 'dev-server'
+		   agent {
+                label 'prd-server'
             }
+
 	
             steps{
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
