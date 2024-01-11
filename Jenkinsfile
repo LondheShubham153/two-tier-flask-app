@@ -17,7 +17,6 @@ pipeline {
 		agent {
                 label 'dev-server'
             }
-
             steps{
                 sh "docker build -t two-tier-falsk-app ."
             }
