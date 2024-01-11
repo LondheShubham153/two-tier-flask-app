@@ -1,0 +1,2 @@
+ hi this is an new file in git	":wq
+
