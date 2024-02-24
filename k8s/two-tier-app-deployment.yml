@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: two-tier-app
-          image: trainwithshubham/flaskapp:latest
+          image: rajesh31mallik/myapp:v1
           resources:
             requests:
               memory: "64Mi"
