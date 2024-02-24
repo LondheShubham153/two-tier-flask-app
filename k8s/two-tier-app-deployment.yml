@@ -5,7 +5,14 @@ metadata:
   labels:
     app: two-tier-app
 spec:
-  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  revisionHistoryLimit: 4
+  replicas: 2
+  minReadySeconds: 20
   selector:
     matchLabels:
       app: two-tier-app
@@ -17,6 +24,13 @@ spec:
       containers:
         - name: two-tier-app
           image: trainwithshubham/flaskapp:latest
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
           env:
             - name: MYSQL_HOST
               value: "10.98.19.211"          # this is your mysql's service clusture IP, Make sure to change it with yours
