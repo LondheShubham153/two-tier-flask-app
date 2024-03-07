@@ -34,7 +34,7 @@ ifeq ($(OS),Darwin)
 endif
 ifeq ($(OS),Windows_NT)
 	@echo "Running for Windows"
-	# Add Windows-specific run commands here
+	# Add Windows-specific run commands if you wish :P
 endif
 
 # Stop target
