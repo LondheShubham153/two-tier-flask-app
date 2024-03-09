@@ -18,13 +18,13 @@ services:
     image: mysql:5.7
     ports:
       - "3306:3306"
+    command: --init-file /message.sql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: myDb
-      MYSQL_USER: admin
       MYSQL_PASSWORD: admin
     volumes:
-      - ./message.sql:/docker-entrypoint-initdb.d/message.sql   # Mount sql script into container's /docker-entrypoint-initdb.d directory to get table automatically created
+      - ./message.sql:/message.sql   # https://stackoverflow.com/questions/43322033/create-database-on-docker-compose-startup
       - mysql-data:/var/lib/mysql  # Mount the volume for MySQL data storage
 
 volumes:
