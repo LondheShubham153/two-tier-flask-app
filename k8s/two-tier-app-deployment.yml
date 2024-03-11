@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: two-tier-app
+  name: two-tier-app-dep
   labels:
     app: two-tier-app
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: two-tier-app
@@ -16,16 +16,16 @@ spec:
     spec:
       containers:
         - name: two-tier-app
-          image: trainwithshubham/flaskapp:latest
+          image: sampaatil/flask-app:latest
           env:
             - name: MYSQL_HOST
-              value: "10.98.19.211"          # this is your mysql's service clusture IP, Make sure to change it with yours
+              value: "10.98.129.26"          # this is your mysql's service clusture IP, Make sure to change it with yours
             - name: MYSQL_PASSWORD
               value: "admin"
             - name: MYSQL_USER
               value: "root"
             - name: MYSQL_DB
-              value: "mydb"
+              value: "myDb"
           ports:
             - containerPort: 5000
           imagePullPolicy: Always
