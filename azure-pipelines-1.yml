@@ -1,0 +1,21 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: DockerCompose@0
+  displayName: 'Build Docker images'
+  inputs:
+    action: 'Build services'
+    dockerComposeFile: 'docker-compose.yml'
+    additionalImageTags: 'latest'
+    includeDependencies: 'true'
+    projectName: 'myapp'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Docker images as artifacts'
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)'
+    ArtifactName: 'docker-images'
