@@ -1,0 +1,13 @@
+# Use the official MySQL 5.7 image as the base image
+FROM mysql:5.7
+
+# Set environment variables
+ENV MYSQL_DATABASE=mydb
+ENV MYSQL_USER=root
+ENV MYSQL_ROOT_PASSWORD=admin
+
+# Expose port 3306 to allow external connections
+EXPOSE 3306
+
+# Start MySQL server
+CMD ["mysqld"]
