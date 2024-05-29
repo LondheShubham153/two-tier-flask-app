@@ -14,7 +14,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: ubuntu-latest
+      name: Default
     steps:
     - task: DockerCompose@0
       displayName: Build with Docker Compose
