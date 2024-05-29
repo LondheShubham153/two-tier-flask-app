@@ -24,7 +24,7 @@ stages:
       displayName: Deploy with Docker Compose
       inputs:
         action: 'Run services'
-        dockerComposeFile: '$(Pipeline.Workspace)/docker-compose.yml'
+        dockerComposeFile: '/home/worker/myagent/_work/5/BuildPipeline/docker-compose-artifact/docker-compose.yml'
         projectName: 'flaskapp'  # Replace with your project name if necessary
         dockerRegistryEndpoint: 'Dockerhub-connection'  # Specify your Docker registry connection here
         additionalImageTags: |
