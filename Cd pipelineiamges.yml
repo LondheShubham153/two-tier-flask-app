@@ -13,6 +13,7 @@ steps:
     pipeline: 'Salmanjutt79.two-tier-flask-app (2)'  # Replace with the name of your CI pipeline
     buildVersionToDownload: 'latest'
     downloadPath: '$(System.ArtifactsDirectory)/docker-images'
+    artifactName: 'docker-images'
 
 - task: DockerCompose@0
   displayName: 'Deploy Docker images'
@@ -20,6 +21,8 @@ steps:
     action: 'Run services'
     dockerComposeFile: 'docker-compose.yml'
     projectName: 'myapp'
+    
     additionalImageTags: 'latest'
     containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'Dockerhub-connection'  # Replace with your Docker registry connection name
+    dockerRegistryEndpoint: 'Dockerhub-connection'
+    #artifactName: 'docker-images'  # Replace with your Docker registry connection name
