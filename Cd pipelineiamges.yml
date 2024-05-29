@@ -1,0 +1,25 @@
+trigger:
+- master
+
+pool:
+  name: 'Default'
+
+steps:
+- task: DownloadBuildArtifacts@0
+  displayName: 'Download Docker images artifact'
+  inputs:
+    buildType: 'specific'
+    project: '$(System.TeamProjectId)'
+    pipeline: 'CI_PIPELINE_NAME'  # Replace with the name of your CI pipeline
+    buildVersionToDownload: 'latest'
+    downloadPath: '$(System.ArtifactsDirectory)/docker-images'
+
+- task: DockerCompose@0
+  displayName: 'Deploy Docker images'
+  inputs:
+    action: 'Run services'
+    dockerComposeFile: 'docker-compose.yml'
+    projectName: 'myapp'
+    additionalImageTags: 'latest'
+    containerRegistryType: 'Container Registry'
+    dockerRegistryEndpoint: 'Dockerhub-connection'  # Replace with your Docker registry connection name
