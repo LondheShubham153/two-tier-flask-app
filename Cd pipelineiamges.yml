@@ -10,7 +10,7 @@ steps:
   inputs:
     buildType: 'specific'
     project: '$(System.TeamProjectId)'
-    pipeline: 'CI_PIPELINE_NAME'  # Replace with the name of your CI pipeline
+    pipeline: 'Salmanjutt79.two-tier-flask-app (2)'  # Replace with the name of your CI pipeline
     buildVersionToDownload: 'latest'
     downloadPath: '$(System.ArtifactsDirectory)/docker-images'
 
