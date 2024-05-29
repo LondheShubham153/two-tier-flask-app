@@ -2,7 +2,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'Default'
 
 steps:
 - task: DockerCompose@0
@@ -11,7 +11,7 @@ steps:
     action: 'Build services'
     dockerComposeFile: 'docker-compose.yml'
     additionalImageTags: 'latest'
-    includeDependencies: 'true'
+    
     projectName: 'myapp'
 
 - task: PublishBuildArtifacts@1
