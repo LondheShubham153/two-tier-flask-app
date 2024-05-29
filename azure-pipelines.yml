@@ -1,0 +1,27 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: 'lts'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DockerCompose@0
+      displayName: Build with Docker Compose
+      inputs:
+        action: 'Build services'
+        dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml'
+        projectName: 'flaskapp'  # Replace with your project name if necessary
+        dockerRegistryEndpoint: 'Dockerhub-connection'  # Specify your Docker registry connection here
+        additionalImageTags: |
+          $(tag)
