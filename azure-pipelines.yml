@@ -25,3 +25,4 @@ stages:
         dockerRegistryEndpoint: 'Dockerhub-connection'  # Specify your Docker registry connection here
         additionalImageTags: |
           $(tag)
+        dockerComposePath: '/usr/local/bin/docker-compose'
