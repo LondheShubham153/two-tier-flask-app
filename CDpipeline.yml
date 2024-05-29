@@ -4,7 +4,7 @@ trigger:
 resources:
   pipelines:
     - pipeline: BuildPipeline  # Reference to the build pipeline that creates the artifact
-      source: ''  # Name of the build pipeline
+      source: 'Salmanjutt79.two-tier-flask-app'  # Name of the build pipeline
       trigger: true  # Automatically trigger on new builds
 
 stages:
