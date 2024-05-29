@@ -26,3 +26,8 @@ stages:
         additionalImageTags: |
           $(tag)
         dockerComposePath: '/usr/local/bin/docker-compose'
+      
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.SourcesDirectory)/docker-compose.yml'  # Path to your Docker Compose file
+        artifactName: 'docker-compose-artifact'
