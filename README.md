@@ -97,7 +97,6 @@ docker run -d \
     -v mysql-data:/var/lib/mysql \
     --network=twotier \
     -e MYSQL_DATABASE=mydb \
-    -e MYSQL_USER=root \
     -e MYSQL_ROOT_PASSWORD=admin \
     -p 3306:3306 \
     mysql:5.7
