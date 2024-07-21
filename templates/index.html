@@ -13,78 +13,104 @@
         }
 
         body {
-            background-color: #f4f4f4;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
         }
 
         .container {
             max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            transition: box-shadow 0.3s ease;
+            width: 100%;
+            margin: 20px auto;
+            padding: 30px;
+            background-colP0+r\P0+r\or: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
 
         .container:hover {
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
         }
 
         h1 {
-            color: #007BFF;
+            color: #ff9800;
             margin-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid #333;
             padding-bottom: 10px;
+            text-align: center;
+            font-size: 1.8rem;
         }
 
         p {
-            color: #666;
-            margin-bottom: 10px;
+            color: #ccc;
+            margin-bottom: 15px;
+            font-size: 1rem;
         }
 
         form {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
         }
 
         input[type="text"] {
-            padding: 10px;
-            border: 1px solid #ccc;
+            padding: 12px;
+            border: 1px solid #333;
+            background-color: #2c2c2c;
+            color: #fff;
             border-radius: 4px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         input[type="text"]:hover, input[type="text"]:focus {
-            border-color: #007BFF;
+            border-color: #ff9800;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.25);
         }
 
         input[type="submit"] {
-            padding: 10px 15px;
-            background-color: #007BFF;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #ff9800, #e65100);
             color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: background 0.3s ease, transform 0.3s ease, box-shP0+r\P0+r\P0+r\P0+r\P0+r\adow 0.3s ease;
+            font-size: 16px;
         }
 
         input[type="submit"]:hover {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #e65100, #ff9800);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
         }
 
         input[type="submit"]:active {
             transform: translateY(0);
+            box-shadow: none;
         }
 
         @media (max-width: 600px) {
             .container {
-                margin: 20px 10px;
+                padding: 20px;
+                margin: 10px;
             }
 
-            input[type="text"] {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            input[type="text"], input[type="submit"] {
                 font-size: 14px;
             }
         }
@@ -93,17 +119,49 @@
 
 <body>
     <div class="container">
-        <h1>Hello Dosto, 
-            Let's make a 2 Tier Application with Flask and MYSQL!</h1>
-        {% for message in messages %}
-            <p>{{ message[0] }}</p>
-        {% endfor %}
+        <h1>Hello Dosto,<br>Let's make a 2 Tier Application with Flask and MYSQL!</h1>
+        <div class="messages">
+            {% for message in messages %}
+                <p>{{ message[0] }}</p>
+            {% endfor %}
+        </div>
 
-        <form action="/submit" method="post">
+        <form id="messageForm">
             <input type="text" name="new_message" placeholder="Enter a new message">
             <input type="submit" value="Submit">
         </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#messageForm").on("submit", function(event) {
+                event.preventDefault(); // Prevent the form from submitting the traditional way
+
+                $.ajax({
+                    url: "/submit",
+                    type: "POST",
+                    data: {
+                        new_message: $("input[name='new_message']").val()
+                    },
+                    success: function(response) {
+                        if (response && response.message) {
+                            // Append the new message to the list of messages
+                            $(".messages").append("<p>" + response.message + "</p>");
+                            // Clear the input field
+                            $("input[name='new_message']").val("");
+                        } else {
+                            console.error("Unexpected response format:", response);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", status, error);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
+
