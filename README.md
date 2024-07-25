@@ -40,11 +40,15 @@ Before you begin, make sure you have the following installed:
    ```
 
 ## Usage
+1. Install docker compose
+   ```bash
+   sudo apt-get install docker-compose-v2
+   ```
 
 1. Start the containers using Docker Compose:
 
    ```bash
-   docker-compose up --build
+   docker compose up -d
    ```
 
 2. Access the Flask app in your web browser:
