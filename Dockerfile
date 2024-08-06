@@ -29,7 +29,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 #Copy libraries
-COPY --from=Backend_flask /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.11/site-packages/
+COPY --from=Backend_flask /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
 
 #Copy Src code from stage 1
 COPY --from=Backend_flask /app /app
