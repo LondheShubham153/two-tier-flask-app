@@ -30,7 +30,7 @@ docker run -d --name mysql_data_with_vloume -v mysql_volume_1:/var/lib/mysql --n
 
 4. Build docker image for flask
 ```sh
-docker build -t two_tire_app:latest
+docker build -t two_tire_app:latest .
 ```
 
 5. Run docker image
