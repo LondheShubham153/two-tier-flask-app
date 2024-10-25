@@ -1,46 +1,48 @@
-version: '3.9'
+version: "3.8"
+
 services:
   mysql:
-    container_name: mysql
     image: mysql:5.7
-    platform: linux/x86_64
-    ports:
-      - "3306:3306"
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: devops
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
     volumes:
-      # - ./message.sql:/docker-entrypoint-initdb.d/message.sql   # Mount sql script into container's /docker-entrypoint-initdb.d directory to get table automatically created
-      - mysql-data:/var/lib/mysql  # Mount the volume for MySQL data storage
+      - ./mysql-data:/var/lib/mysql
+      - ./message.sql:/docker-entrypoint-initdb.d/message.sql  
     networks:
       - twotier
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       interval: 10s
+      timeout: 5s
       retries: 5
-      start_period: 30s
+      start_period: 60s
 
   flask-app:
     build:
       context: .
+    container_name: flask-app
     ports:
-      - "5001:5000"
+      - "5000:5000"
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_DB: devops
     depends_on:
-      mysql: 
-        condition: service_healthy
-
+      - mysql
     networks:
       - twotier
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
-volumes:
-  mysql-data:
 networks:
   twotier:
-    driver: bridge
