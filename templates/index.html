@@ -4,110 +4,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask App</title>
+    <title>Flask App 🚀</title>
     <style>
-        body, h1, p, form, input {
+        /* Import Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Reset Default Styles */
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
+        /* Background with subtle gradient */
         body {
-            background-color: #121212;
-            color: #e0e0e0;
+            background: linear-gradient(to bottom, #0f0f0f, #1c1c1c);
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
+            padding: 20px;
         }
 
+        /* Glassmorphic Container */
         .container {
-            max-width: 800px;
+            max-width: 600px;
             width: 100%;
-            margin: 20px auto;
             padding: 30px;
-            background-colP0+r\P0+r\or: #1e1e1e;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .container:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(255, 255, 255, 0.1);
         }
 
+        /* Elegant Heading */
         h1 {
-            color: #ff9800;
+            font-size: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff9800, #e65100);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-            text-align: center;
-            font-size: 1.8rem;
         }
 
-        p {
-            color: #ccc;
-            margin-bottom: 15px;
-            font-size: 1rem;
+        /* Messages Box */
+        .messages {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .messages p {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
         }
 
+        /* Animated Input Fields */
         input[type="text"] {
+            width: 100%;
             padding: 12px;
-            border: 1px solid #333;
-            background-color: #2c2c2c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 16px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            text-align: center;
         }
 
-        input[type="text"]:hover, input[type="text"]:focus {
+        input[type="text"]:focus {
             border-color: #ff9800;
-            box-shadow: 0 0 8px rgba(255, 152, 0, 0.25);
+            box-shadow: 0 0 12px rgba(255, 152, 0, 0.5);
+            outline: none;
         }
 
+        /* Glowing Submit Button */
         input[type="submit"] {
-            padding: 12px 20px;
+            width: 100%;
+            padding: 12px;
             background: linear-gradient(135deg, #ff9800, #e65100);
             color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease, box-shP0+r\P0+r\P0+r\P0+r\P0+r\adow 0.3s ease;
             font-size: 16px;
+            transition: all 0.3s ease;
         }
 
         input[type="submit"]:hover {
-            background: linear-gradient(135deg, #e65100, #ff9800);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.6);
             transform: translateY(-2px);
         }
 
-        input[type="submit"]:active {
-            transform: translateY(0);
-            box-shadow: none;
-        }
-
+        /* Mobile Responsive */
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
-                margin: 10px;
             }
 
             h1 {
-                font-size: 1.5rem;
-            }
-
-            p {
-                font-size: 0.9rem;
+                font-size: 1.6rem;
             }
 
             input[type="text"], input[type="submit"] {
@@ -119,7 +131,8 @@
 
 <body>
     <div class="container">
-        <h1>Hello Dosto,<br>Let's make a 2 Tier Application with Flask and MYSQL!</h1>
+        <h1>🚀 Flask + MySQL App</h1>
+
         <div class="messages">
             {% for message in messages %}
                 <p>{{ message[0] }}</p>
@@ -127,29 +140,34 @@
         </div>
 
         <form id="messageForm">
-            <input type="text" name="new_message" placeholder="Enter a new message">
-            <input type="submit" value="Submit">
+            <input type="text" name="new_message" placeholder="Type your message..." required>
+            <input type="submit" value="Send">
         </form>
     </div>
 
+    <!-- jQuery for Smooth AJAX Requests -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#messageForm").on("submit", function(event) {
-                event.preventDefault(); // Prevent the form from submitting the traditional way
+                event.preventDefault(); // Prevent page reload
+
+                let messageInput = $("input[name='new_message']");
+                let message = messageInput.val().trim();
+
+                if (message === "") {
+                    alert("Message cannot be empty!");
+                    return;
+                }
 
                 $.ajax({
                     url: "/submit",
                     type: "POST",
-                    data: {
-                        new_message: $("input[name='new_message']").val()
-                    },
+                    data: { new_message: message },
                     success: function(response) {
                         if (response && response.message) {
-                            // Append the new message to the list of messages
                             $(".messages").append("<p>" + response.message + "</p>");
-                            // Clear the input field
-                            $("input[name='new_message']").val("");
+                            messageInput.val("");
                         } else {
                             console.error("Unexpected response format:", response);
                         }
@@ -164,4 +182,3 @@
 </body>
 
 </html>
-
