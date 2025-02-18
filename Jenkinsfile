@@ -17,7 +17,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
                     sh "docker tag flaskapp ${env.dockerHubUser}/flaskapp:latest"
-                    sh "docker push ${env.dockerHubUser}/flaskapp:latest" 
+                    sh "docker push ${env.dockerHubUser}/flaskapp:latest"
+                    sh "echo 'Pushed Docker image: ${env.dockerHubUser}/flaskapp:latest'"
                 }
             }
         }
