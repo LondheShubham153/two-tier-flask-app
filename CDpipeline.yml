@@ -1,0 +1,32 @@
+trigger:
+- none
+
+resources:
+  pipelines:
+    - pipeline: BuildPipeline  # Reference to the build pipeline that creates the artifact
+      source: 'Salmanjutt79.two-tier-flask-app'  # Name of the build pipeline
+      trigger: true  # Automatically trigger on new builds
+
+stages:
+- stage: Deploy
+  displayName: Deploy Docker Compose
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      name: Default
+    steps:
+    - download: BuildPipeline  # Download the artifact from the build pipeline
+      artifact: 'docker-compose-artifact'  # Name of the artifact published by the build pipeline
+      
+
+    - task: DockerCompose@0
+      displayName: Deploy with Docker Compose
+      inputs:
+        action: 'Run services'
+        dockerComposeFile: '/home/worker/myagent/_work/5/BuildPipeline/docker-compose-artifact/docker-compose.yml'
+        projectName: 'flaskapp'  # Replace with your project name if necessary
+        dockerRegistryEndpoint: 'Dockerhub-connection'  # Specify your Docker registry connection here
+        additionalImageTags: |
+          $(tag)
+        dockerComposePath: '/usr/local/bin/docker-compose'

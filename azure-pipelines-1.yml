@@ -1,0 +1,21 @@
+trigger:
+- master
+
+pool:
+  name: 'Default'
+
+steps:
+- task: DockerCompose@0
+  displayName: 'Build Docker images'
+  inputs:
+    action: 'Build services'
+    dockerComposeFile: 'docker-compose.yml'
+    additionalImageTags: 'latest'
+    
+    projectName: 'myapp'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Docker images as artifacts'
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)'
+    ArtifactName: 'docker-images'
