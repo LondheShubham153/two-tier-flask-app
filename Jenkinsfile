@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('code clone'){
             steps{
-                git url:'https://github.com/LondheShubham153/two-tier-flask-app.git', branch:'master'
+                git url:'https://github.com/jkabirqa/two-tier-flask-app.git', branch:'master'
             }
         }
         stage('build'){
@@ -22,7 +22,7 @@ pipeline {
            steps {
                withCredentials([usernamePassword(
                    credentialsId: "dhcredsforJenkins",
-                   passwordVariable: "dockerHubPass",
+                   passwordVariable :"dockerHubPass",
                    usernameVariable: "dockerHubUser"
                 )]) {
                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
