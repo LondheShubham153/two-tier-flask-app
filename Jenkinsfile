@@ -15,14 +15,14 @@ pipeline {
         }
         stage('test'){
             steps{
-                echo 'testing'
+                echo 'testing testing'
             }
         }
         stage('push to docker hub') {
            steps {
                withCredentials([usernamePassword(
                    credentialsId: "dhcredsforJenkins",
-                   passwordVariable :"dockerHubPass",
+                   passwordVariable : "dockerHubPass",
                    usernameVariable: "dockerHubUser"
                 )]) {
                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
