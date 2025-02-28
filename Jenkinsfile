@@ -29,12 +29,13 @@ pipeline {
                sh "docker image tag twotapp ${env.dockerHubUser}/twotapp"
                sh "docker push ${env.dockerHubUser}/twotapp:latest"
                 }
+           
            }
            
         }   
         stage('deploy'){
             steps{
-                sh "docker compose up -d --build flaskk-app"
+                sh "docker compose up -d --build flask-app"
             }
             
         }
