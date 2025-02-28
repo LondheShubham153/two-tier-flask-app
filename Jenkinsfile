@@ -34,10 +34,28 @@ pipeline {
         }   
         stage('deploy'){
             steps{
-                sh 'docker compose up -d --build flaskk-app'
+                sh "docker compose up -d --build flaskk-app"
             }
             
         }
     }
 
+post{
+        success{
+            script{
+                emailext from: 'jkabirq@gmail.com',
+                to: 'jkabirm@gmail.com',
+                body: 'Build success for Demo CICD App',
+                subject: 'Build success for Demo CICD App'
+            }
+        }
+        failure{
+            script{
+                emailext from: 'jkabirq@gmail.com',
+                to: 'jkabirm@gmail.com',
+                body: 'Build Failed for Demo CICD App',
+                subject: 'Build Failed for Demo CICD App'
+            }
+        }
+    }
 }
