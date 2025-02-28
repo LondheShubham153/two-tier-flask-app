@@ -37,7 +37,7 @@ pipeline {
         }   
         stage('deploy'){
             steps{
-                sh "docker compose up -d --build new-app"
+                sh "docker compose up -d --build twotapp"
             }
             
         }
