@@ -15,7 +15,7 @@ pipeline {
         }
         stage('test'){
             steps{
-                echo 'testing testing'
+                echo 'testing testing hello'
             }
         }
         stage('push to docker hub') {
