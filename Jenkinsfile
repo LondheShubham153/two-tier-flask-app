@@ -1,12 +1,13 @@
 pipeline {
     
     agent {label "dev"};
-    stage('Clean Workspace') {
+    
+    stages {
+        stage('Clean Workspace') {
             steps {
                 cleanWs()
             }
         }
-    stages {
         stage('code clone'){
             steps{
                 git url:'https://github.com/jkabirqa/two-tier-flask-app.git', branch:'master'
