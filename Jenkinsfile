@@ -1,7 +1,11 @@
 pipeline {
     
     agent {label "dev"};
-    
+    stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
     stages {
         stage('code clone'){
             steps{
