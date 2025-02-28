@@ -20,16 +20,16 @@ pipeline {
         }
         stage('push to docker hub') {
            steps {
-               script{
-                   docker_push("dockerHubCreds", "twotapp")
-               // withCredentials([usernamePassword(
-               //     credentialsId: "dhcredsforJenkins",
-               //     passwordVariable: "dockerHubPass",
-               //     usernameVariable: "dockerHubUser"
-               //  )]) {
-               // sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-               // sh "docker image tag twotapp ${env.dockerHubUser}/twotapp"
-               // sh "docker push ${env.dockerHubUser}/twotapp:latest"
+               // script{
+               //     docker_push("dockerHubCreds", "twotapp")
+               withCredentials([usernamePassword(
+                   credentialsId: "dhcredsforJenkins",
+                   passwordVariable: "dockerHubPass",
+                   usernameVariable: "dockerHubUser"
+                )]) {
+                   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
+                   sh "docker image tag twotapp ${env.dockerHubUser}/twotapp"
+                   sh "docker push ${env.dockerHubUser}/twotapp:latest"
                 }
            
            }
