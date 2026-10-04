@@ -1,0 +1,12 @@
+.git
+.venv
+__pycache__
+*.pyc
+.env
+mysql-data
+tests
+aws
+k8s
+eks-manifests
+Jenkinsfile
+*.md

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:latest
+          image: mysql:8.4
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "admin"

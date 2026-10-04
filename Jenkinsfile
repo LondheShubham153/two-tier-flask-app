@@ -26,7 +26,11 @@ pipeline{
         }
         stage("Test"){
             steps{
-                echo "Developer / Tester tests likh ke dega..."
+                sh """
+                    python3 -m venv .venv
+                    .venv/bin/pip install -q -r requirements-dev.txt
+                    .venv/bin/pytest
+                """
             }
             
         }

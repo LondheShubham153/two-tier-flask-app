@@ -1,29 +1,31 @@
 # ------------------- Stage 1: Build Stage ------------------------------
-FROM python:3.9 AS builder
+FROM python:3.13 AS builder
 
 WORKDIR /app
 
-# Install build dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc default-libmysqlclient-dev pkg-config && \
-    rm -rf /var/lib/apt/lists/*
+# Install dependencies into a virtual environment we can copy as one folder
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
-# Copy and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ------------------- Stage 2: Final Stage ------------------------------
-FROM python:3.9-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 
-# Install runtime dependencies only
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libmariadb3 && \
-    rm -rf /var/lib/apt/lists/*
-
-# Copy dependencies and application code from the builder stage
-COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
+# Copy only the virtual environment and the application code
+COPY --from=builder /opt/venv /opt/venv
 COPY . .
+ENV PATH="/opt/venv/bin:$PATH"
 
-CMD ["python", "app.py"]
+RUN useradd --system --no-create-home appuser
+USER appuser
+
+EXPOSE 5000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"
+
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "app:app"]

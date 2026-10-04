@@ -4,179 +4,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask App new🚀</title>
+    <meta name="color-scheme" content="dark light">
+    <title>DevOps - Zero To Hero by TWS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Import Google Font */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-        /* Reset Default Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        :root {
+            --bg: #0b0d12;
+            --bg-glow: rgba(255, 140, 0, 0.14);
+            --surface: #141821;
+            --surface-2: #1b2030;
+            --border: #272d3d;
+            --text: #eef0f5;
+            --muted: #8b93a7;
+            --accent: #ff8a1f;
+            --accent-2: #ff5a1f;
+            --accent-ink: #1a0f02;
+            --ok: #3ddc97;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
         }
 
-        /* Background with subtle gradient */
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f6f7fb;
+                --bg-glow: rgba(255, 138, 31, 0.18);
+                --surface: #ffffff;
+                --surface-2: #f1f3f9;
+                --border: #e1e5ee;
+                --text: #141821;
+                --muted: #5d6679;
+                --shadow: 0 20px 50px rgba(20, 24, 33, 0.10);
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background: linear-gradient(to bottom, #0f0f0f, #1c1c1c);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, var(--bg-glow), transparent 70%),
+                var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            line-height: 1.5;
         }
 
-        /* Glassmorphic Container */
-        .container {
-            max-width: 600px;
+        .card {
             width: 100%;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 640px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
         }
 
-        .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(255, 255, 255, 0.1);
+        header {
+            padding: 32px 32px 24px;
+            border-bottom: 1px solid var(--border);
         }
 
-        /* Elegant Heading */
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.75rem;
+            color: var(--muted);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+
         h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #ff9800, #e65100);
+            font-size: clamp(1.6rem, 5vw, 2.1rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            background-clip: text;
+            color: transparent;
         }
 
-        /* Messages Box */
-        .messages {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .messages p {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            margin-bottom: 5px;
+        .subtitle {
+            margin-top: 8px;
+            color: var(--muted);
             font-size: 0.95rem;
         }
 
-        /* Animated Input Fields */
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
+        .tiers {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+
+        .tier {
+            padding: 4px 10px;
             border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            background: var(--surface-2);
+            font-weight: 500;
+        }
+
+        .tiers .line { flex: 0 0 24px; height: 1px; background: var(--border); }
+
+        main { padding: 24px 32px 8px; }
+
+        .feed-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 4px;
+            scroll-behavior: smooth;
+        }
+
+        .messages p {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            overflow-wrap: anywhere;
+            animation: pop 0.25s ease-out;
+        }
+
+        .empty {
             text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+            padding: 28px 0;
+            border: 1px dashed var(--border);
+            border-radius: 10px;
         }
 
-        input[type="text"]:focus {
-            border-color: #ff9800;
-            box-shadow: 0 0 12px rgba(255, 152, 0, 0.5);
+        .empty[hidden] { display: none; }
+
+        @keyframes pop {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            padding: 16px 32px 28px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 0;
+            padding: 12px 14px;
+            font: inherit;
+            color: var(--text);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        input[type="text"]::placeholder { color: var(--muted); }
+
+        input[type="text"]:focus-visible {
             outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(255, 138, 31, 0.22);
         }
 
-        /* Glowing Submit Button */
         input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #ff9800, #e65100);
-            color: #fff;
+            padding: 12px 22px;
+            font: inherit;
+            font-weight: 600;
+            color: var(--accent-ink);
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            transition: transform 0.15s, box-shadow 0.15s;
         }
 
-        input[type="submit"]:hover {
-            box-shadow: 0 0 20px rgba(255, 152, 0, 0.6);
-            transform: translateY(-2px);
+        input[type="submit"]:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(255, 106, 31, 0.35); }
+        input[type="submit"]:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+        input[type="submit"]:disabled { opacity: 0.6; cursor: progress; transform: none; }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 14px 32px;
+            background: var(--surface-2);
+            border-top: 1px solid var(--border);
+            font-size: 0.78rem;
+            color: var(--muted);
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
+        .served-by {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-            h1 {
-                font-size: 1.6rem;
-            }
+        .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--ok);
+            box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.6);
+            animation: pulse 2s infinite;
+        }
 
-            input[type="text"], input[type="submit"] {
-                font-size: 14px;
-            }
+        @keyframes pulse {
+            70% { box-shadow: 0 0 0 8px rgba(61, 220, 151, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+        }
+
+        @media (max-width: 480px) {
+            header, main, form, footer { padding-left: 20px; padding-right: 20px; }
+            form { flex-direction: column; }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Flask + MySQL App [2 tier] - Junoon 🔥</h1>
+    <div class="card">
+        <header>
+            <div class="eyebrow">Flask + MySQL · 2-tier</div>
+            <h1>DevOps - <span>Zero To Hero</span> by TWS</h1>
+            <p class="subtitle">Send a message. It travels through Flask and is stored in MySQL.</p>
+            <div class="tiers" aria-hidden="true">
+                <span class="tier">Browser</span><span class="line"></span>
+                <span class="tier">Flask</span><span class="line"></span>
+                <span class="tier">MySQL</span>
+            </div>
+        </header>
 
-        <div class="messages">
-            {% for message in messages %}
-                <p>{{ message[0] }}</p>
-            {% endfor %}
-        </div>
+        <main>
+            <div class="feed-head">
+                <span>Messages</span>
+                <span id="count">{{ messages|length }}</span>
+            </div>
+            <div class="messages" id="messages" aria-live="polite">
+                {% for message in messages %}
+                    <p>{{ message[0] }}</p>
+                {% endfor %}
+            </div>
+            <div class="empty" id="empty" {% if messages %}hidden{% endif %}>No messages yet. Be the first to say something.</div>
+        </main>
 
         <form id="messageForm">
-            <input type="text" name="new_message" placeholder="Type your message..." required>
+            <label for="new_message" hidden>Message</label>
+            <input type="text" id="new_message" name="new_message" placeholder="Type your message..." autocomplete="off" required>
             <input type="submit" value="Send">
         </form>
+
+        <footer>
+            <span class="served-by"><span class="dot"></span>Served by {{ hostname }}</span>
+            <span>TrainWithShubham</span>
+        </footer>
     </div>
 
-    <!-- jQuery for Smooth AJAX Requests -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $("#messageForm").on("submit", function(event) {
-                event.preventDefault(); // Prevent page reload
+        const form = document.getElementById("messageForm");
+        const input = document.getElementById("new_message");
+        const list = document.getElementById("messages");
+        const empty = document.getElementById("empty");
+        const count = document.getElementById("count");
+        const button = form.querySelector("input[type='submit']");
 
-                let messageInput = $("input[name='new_message']");
-                let message = messageInput.val().trim();
+        list.scrollTop = list.scrollHeight;
 
-                if (message === "") {
-                    alert("Message cannot be empty!");
-                    return;
-                }
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault(); // Prevent page reload
 
-                $.ajax({
-                    url: "/submit",
-                    type: "POST",
-                    data: { new_message: message },
-                    success: function(response) {
-                        if (response && response.message) {
-                            $(".messages").append("<p>" + response.message + "</p>");
-                            messageInput.val("");
-                        } else {
-                            console.error("Unexpected response format:", response);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error:", status, error);
-                    }
+            const message = input.value.trim();
+            if (message === "") {
+                alert("Message cannot be empty!");
+                return;
+            }
+
+            button.disabled = true;
+            try {
+                const res = await fetch("/submit", {
+                    method: "POST",
+                    body: new URLSearchParams({ new_message: message }),
                 });
-            });
+                const data = await res.json();
+                if (data && data.message) {
+                    const p = document.createElement("p");
+                    p.textContent = data.message; // textContent: never parsed as HTML
+                    list.appendChild(p);
+                    list.scrollTop = list.scrollHeight;
+                    empty.hidden = true;
+                    count.textContent = list.children.length;
+                    input.value = "";
+                    input.focus();
+                } else {
+                    console.error("Unexpected response format:", data);
+                }
+            } catch (err) {
+                console.error("Request failed:", err);
+            } finally {
+                button.disabled = false;
+            }
         });
     </script>
 </body>

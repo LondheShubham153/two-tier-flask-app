@@ -11,22 +11,11 @@ git clone https://github.com/LondheShubham153/two-tier-flask-app.git
 ```bash
 cd two-tier-flask-app/k8s
 ```
-- Now, execute below commands one by one
+- Apply the manifests (database first, then the app):
 ```bash
-kubectl apply -f twotier-deployment.yml
+kubectl apply -f mysql-pv.yml -f mysql-pvc.yml
+kubectl apply -f mysql-deployment.yml -f mysql-svc.yml
+kubectl apply -f two-tier-app-deployment.yml -f two-tier-app-svc.yml
 ```
-```bash
-kubectl apply -f twotier-deployment-svc.yml
-```
-```bash
-kubectl apply -f mysql-deployment.yml
-```
-```bash
-kubectl apply -f mysql-deployment-svc.yml
-```
-```bash
-kubectl apply -f persistent-volume.yml
-```
-```bash
-kubectl apply -f persistent-volume-claim.yml
-```
+- The app finds MySQL through the `mysql` Service DNS name, so there is no IP to edit.
+- Open the app at `http://<node-ip>:30004`.
