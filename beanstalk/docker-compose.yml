@@ -1,0 +1,41 @@
+services:
+  flask-app:
+    image: trainwithshubham/two-tier-flask-app:1.0.0
+    ports:
+      - "80:5000"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: "3306"
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: change-me-app-password
+      MYSQL_DB: devops
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    restart: always
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: change-me-root-password
+      MYSQL_DATABASE: devops
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: change-me-app-password
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: always
+
+volumes:
+  mysql-data:
