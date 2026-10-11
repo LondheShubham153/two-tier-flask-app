@@ -112,6 +112,7 @@ pytest
 | `Dockerfile`, `Dockerfile-multistage` | Container images (the second shows the multi-stage pattern) |
 | `docker-compose.yml`, `Makefile` | Local run |
 | `Jenkinsfile` | CI/CD pipeline |
+| `beanstalk/` | Run the app on AWS Elastic Beanstalk (compose file for Standard Mode, Docker Hub image plus RDS for Cluster Mode) |
 | `k8s/`, `eks-manifests/` | Kubernetes manifests (kubeadm cluster / Amazon EKS) |
 | **`aws/`** | **Step-by-step guide to run this app on AWS: VPC, EC2, RDS, ALB, Auto Scaling, CloudWatch** |
 
