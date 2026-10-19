@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: two-tier-app-service
 spec:
+  type: NodePort
   selector:
     app: two-tier-app
   ports:
@@ -10,4 +11,3 @@ spec:
       port: 80
       targetPort: 5000
       nodePort: 30004
-  type: NodePort
