@@ -12,7 +12,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Run as a non-root user
-RUN useradd --system --no-create-home appuser
+RUN useradd --system --create-home appuser && \
+chown -R appuser:appuser /app
 USER appuser
 
 EXPOSE 5000
