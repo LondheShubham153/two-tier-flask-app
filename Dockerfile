@@ -6,7 +6,8 @@ WORKDIR /app
 
 # Dependencies are pure Python (PyMySQL), so no compiler or system packages are needed
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --prefer-binary -r requirements.txt
+
 
 # Copy the rest of the application code
 COPY . .
