@@ -1,4 +1,4 @@
-# Use an official Python runtime as the base image
+i# Use an official Python runtime as the base image
 FROM python:3.13-slim
 
 # Set the working directory in the container
@@ -6,7 +6,8 @@ WORKDIR /app
 
 # Dependencies are pure Python (PyMySQL), so no compiler or system packages are needed
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --prefer-binary -r requirements.txt
+
 
 # Copy the rest of the application code
 COPY . .
