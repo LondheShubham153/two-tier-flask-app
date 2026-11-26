@@ -40,5 +40,21 @@ pipeline{
             }
         }
     }
-    
+
+post {
+    success {
+        emailext(
+            body: 'Build Successful',
+            subject: 'Jenkins Build Successful',
+            to: 'yajatdhawan541@gmail.com'
+        )
+    }
+    failure {
+        emailext(
+            body: 'Build Failed',
+            subject: 'Jenkins Build Failed',
+            to: 'yajatdhawan541@gmail.com'
+        )
+    }
+}
 }
