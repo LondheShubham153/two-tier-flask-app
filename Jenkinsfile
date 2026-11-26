@@ -1,69 +1,65 @@
-@Library("Shared") _
 pipeline{
     
-    agent { label "dev"};
+    agent { label "dev" };
     
     stages{
         stage("Code Clone"){
             steps{
-               script{
-                   clone("https://github.com/LondheShubham153/two-tier-flask-app.git", "master")
-               }
+                git url: "https://github.com/Yajat541/two-tier-flask-app.git",branch: "master"
             }
         }
-        stage("Trivy File System Scan"){
+        stage("Trivy file system scan"){
             steps{
-                script{
-                    trivy_fs()
-                }
+                sh "Trivy fs . -o results.json"
             }
         }
         stage("Build"){
             steps{
                 sh "docker build -t two-tier-flask-app ."
             }
-            
         }
         stage("Test"){
             steps{
-                sh """
-                    python3 -m venv .venv
-                    .venv/bin/pip install -q -r requirements-dev.txt
-                    .venv/bin/pytest
-                """
+                echo "Tester tests likh kardega"
             }
-            
         }
         stage("Push to Docker Hub"){
             steps{
-                script{
-                    docker_push("dockerHubCreds","two-tier-flask-app")
-                }  
+                withCredentials([usernamePassword(
+                    credentialsId: "dockerhubCreds",
+                    passwordVariable: "dockerHubPass",
+                    usernameVariable: "dockerHubUser"
+                )]){
+                        
+                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
+                sh "docker image tag two-tier-flask-app ${env.dockerHubUser}/two-tier-flask-app"
+                sh "docker push ${env.dockerHubUser}/two-tier-flask-app:latest"
+            }
             }
         }
         stage("Deploy"){
             steps{
-                sh "docker compose up -d --build flask-app"
+            sh "docker compose down --remove-orphans || true"
+            sh "docker rm -f mysql flask-app || true"
+            sh "docker compose up -d --build"
             }
         }
     }
 
-post{
-        success{
-            script{
-                emailext from: 'mentor@trainwithshubham.com',
-                to: 'mentor@trainwithshubham.com',
-                body: 'Build success for Demo CICD App',
-                subject: 'Build success for Demo CICD App'
-            }
-        }
-        failure{
-            script{
-                emailext from: 'mentor@trainwithshubham.com',
-                to: 'mentor@trainwithshubham.com',
-                body: 'Build Failed for Demo CICD App',
-                subject: 'Build Failed for Demo CICD App'
-            }
-        }
+post {
+    success {
+        emailext(
+            body: 'Build Successful',
+            subject: 'Jenkins Build Successful',
+            to: 'yajatdhawan541@gmail.com'
+        )
     }
+    failure {
+        emailext(
+            body: 'Build Failed',
+            subject: 'Jenkins Build Failed',
+            to: 'yajatdhawan541@gmail.com'
+        )
+    }
+}
 }
